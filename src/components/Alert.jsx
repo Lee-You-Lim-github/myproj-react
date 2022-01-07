@@ -1,5 +1,4 @@
 // https://tailwind-elements.com/docs/standard/components/alerts/
-
 import Check from "./icons/Check";
 import Danger from "./icons/Danger";
 import Info from "./icons/Info";
