@@ -1,10 +1,14 @@
 import { useState } from "react";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ReviewForm() {
   const [fieldValue, setFieldValue] = useState({
     content: "",
-    score: 3,
+    score: 0,
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +20,25 @@ function ReviewForm() {
 
     console.log(e.target.value);
   };
+
+  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const url = "http://127.0.0.1:8000/shop/api/reviews/";
+
+    Axios.post(url, fieldValue)
+      .then(() => navigate("/reviews/"))
+      .catch((error) => console.error(error))
+      .finally(() => setFieldValue({}));
+  };
+
+  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  const changeReviewList = () => {
+    navigate("/reviews/");
+  };
+
+  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   return (
     <div>
       <h2>Review Form</h2>
@@ -44,16 +67,26 @@ function ReviewForm() {
         <textarea
           className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
-          name="text"
+          name="content"
           onChange={(e) => handleChange(e)}
         />
       </div>
       <div className="mb-4">
-        <button className="shadow border bg-blue-100 hover:bg-blue-300 border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight">
+        <button
+          className="shadow border bg-blue-100 hover:bg-blue-300 border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight"
+          onClick={handleSubmit}
+        >
           저장하기
         </button>
         {JSON.stringify(fieldValue)}
       </div>
+
+      <button
+        className="shadow border bg-blue-100 hover:bg-blue-300 border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight"
+        onClick={changeReviewList}
+      >
+        리뷰 리스트로 이동
+      </button>
     </div>
   );
 }
