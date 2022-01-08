@@ -1,5 +1,19 @@
+import { useState } from "react";
+
 function ReviewForm() {
+  const [fieldValue, setFieldValue] = useState({
+    content: "",
+    score: 3,
+  });
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFieldValue((prevFieldValue) => ({
+      ...prevFieldValue,
+      [name]: value,
+    }));
+
     console.log(e.target.value);
   };
   return (
@@ -38,6 +52,7 @@ function ReviewForm() {
         <button className="shadow border bg-blue-100 hover:bg-blue-300 border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight">
           저장하기
         </button>
+        {JSON.stringify(fieldValue)}
       </div>
     </div>
   );
