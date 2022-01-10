@@ -1,6 +1,8 @@
 function PageBlog() {
   return (
-    <div className="text-xl border-l-8 border-red-400 pl-1 mb-2">Blog</div>
+    <div>
+      <h2 className="text-red-400 border-b-2 border-red-300">Blog</h2>
+    </div>
   );
 }
 export default PageBlog;
