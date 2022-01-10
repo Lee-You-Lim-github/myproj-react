@@ -6,7 +6,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import TopNav from "components/TopNav";
 import Components from "pages/examples/Components";
 import ReviewForm from "pages/reviews/ReviewForm";
-import PageBlog from "pages/blogs/PageBlog";
+import PageBlogList from "pages/blogs/PageBlogList";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path="/reviews/" element={<ReviewList />} />
         <Route path="/reviews/new" element={<ReviewForm />} />
         <Route path="/examples/components/" element={<Components />} />
-        <Route path="/blogs/" element={<PageBlog />} />
+        <Route path="/blogs/" element={<PageBlogList />} />
       </Routes>
     </div>
   );
