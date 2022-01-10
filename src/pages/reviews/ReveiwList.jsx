@@ -28,9 +28,7 @@ function PageReviewList() {
       })
       // 400 이상
       .catch((error) => {
-        console.group("에러 응답");
-        console.log(error);
-        console.groupEnd();
+        console.error("에러 응답");
         setError(error);
       })
       .finally(() => {
@@ -91,7 +89,9 @@ function PageReviewList() {
           <Review
             key={review.id}
             review={review}
+            handleEdit={() => navigate(`/reviews/${review.id}/edit/`)}
             handleDelete={() => deleteReview(review)}
+            loading={loading}
           />
         ))}
       </div>
