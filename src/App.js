@@ -15,7 +15,7 @@ function App() {
     <div className="app">
       <TopNav />
       <Routes>
-        <Route path="/" element={<Navigate to="/blogs/" />} />
+        <Route path="/" element={<Navigate to="/blog/" />} />
         <Route path="/accounts/login/" element={<Login />} />
         <Route path="/accounts/profile/" element={<Profile />} />
         <Route path="/reviews/" element={<ReviewList />} />
@@ -25,6 +25,7 @@ function App() {
         <Route path="/blog/" element={<PageBlogList />} />
         <Route path="/blog/:postId/" element={<PageBlogDetail />} />
         <Route path="/blog/new/" element={<PageBlogForm />} />
+        <Route path="/blog/:postId/edit/" element={<PageBlogForm />} />
       </Routes>
     </div>
   );

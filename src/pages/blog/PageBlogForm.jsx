@@ -2,24 +2,68 @@ import Axios from "axios";
 import BlogForm from "components/blog/BlogForm";
 import DebugStates from "components/DebugStates";
 import useFieldValues from "hooks/useFieldValues";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PageBlogForm() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const { postId } = useParams();
-
-  const { fieldValues, handleFieldChange } = useFieldValues({
-    title: "",
-    content: "",
-  });
-
   const navigate = useNavigate();
 
-  const savePost = () => {
-    const url = "http://127.0.0.1:8000/blog/api/posts/";
+  const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
+    useFieldValues({
+      title: "",
+      content: "",
+    });
 
-    Axios.post(url, fieldValues)
-      .then(() => navigate(`/blog/`))
-      .catch((error) => console.error(error));
+  // 수정값 읽어 옴.
+  useEffect(() => {
+    const fetchPost = async () => {
+      setLoading(true);
+      setError(null);
+
+      const url = `http://127.0.0.1:8000/blog/api/posts/${postId}/`;
+
+      try {
+        const response = await Axios.get(url);
+        setFieldValues(response.data);
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false);
+    };
+    if (postId) fetchPost();
+    else clearFieldValues();
+
+    // useCallback으로 clearFieldValues()의 반복을 없앰  --> 값의 변경을 최소화
+  }, [postId, setFieldValues, clearFieldValues]);
+
+  // 값 저장
+  const savePost = async () => {
+    // 통신 중
+    setLoading(true);
+    setError(null);
+
+    const url = !postId
+      ? "http://127.0.0.1:8000/blog/api/posts/"
+      : `http://127.0.0.1:8000/blog/api/posts/${postId}/`;
+
+    try {
+      if (!postId) {
+        await Axios.post(url, fieldValues);
+      } else {
+        await Axios.put(url, fieldValues);
+      }
+      navigate(`/blog/`);
+    } catch (error) {
+      setError(error);
+      console.error(error);
+    }
+    // 통신이 끝난 후
+    // async()에는 finally가 없음.
+    setLoading(false);
   };
 
   return (
@@ -31,6 +75,7 @@ function PageBlogForm() {
         fieldValues={fieldValues}
         handleFieldChange={handleFieldChange}
         handleSubmit={(e) => savePost(e)}
+        loading={loading}
       />
       <DebugStates fieldValues={fieldValues} />
     </div>
