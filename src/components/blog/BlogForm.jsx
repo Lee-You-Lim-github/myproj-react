@@ -3,6 +3,14 @@ import { useState } from "react";
 import Axios from "axios";
 
 function BlogForm({ fieldValues, handleFieldChange, handleSubmit }) {
+  // 저장이 안 되었을 경우 !경고!
+  const handleClickedSubmitButton = () => {
+    if (handleSubmit) {
+      return handleSubmit();
+    } else {
+      console.warn("handleSubmit 속성값을 지정해주세요.");
+    }
+  };
   return (
     <div className="rounded border-2 border-gray-300 p-3 my-3">
       <div className="mb-4">
@@ -25,7 +33,7 @@ function BlogForm({ fieldValues, handleFieldChange, handleSubmit }) {
           className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           name="content"
           value={fieldValues.content}
-          onChange={(e) => handleFieldChange(e)}
+          onChange={() => handleClickedSubmitButton()}
         ></textarea>
       </div>
       <button
