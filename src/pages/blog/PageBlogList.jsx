@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 function PageBlogList() {
   const [postList, setPostList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -13,18 +15,24 @@ function PageBlogList() {
   }, []);
 
   const refetch = () => {
+    setLoading(true);
+    setError(null);
+
     const url = "http://127.0.0.1:8000/blog/api/posts/";
 
     Axios.get(url)
       .then(({ data }) => setPostList(data))
       .catch((error) => {
-        console.group("에러 응답");
-        console.log(error);
-        console.groupEnd();
-      });
+        console.error("에러 응답");
+        setError(error);
+      })
+      .finally(() => setLoading(false));
   };
 
   const deletePost = (deletingPost) => {
+    setLoading(true);
+    setError(null);
+
     const { id: deletingPostId } = deletingPost;
     const url = `http://127.0.0.1:8000/blog/api/posts/${deletingPostId}`;
 
@@ -35,7 +43,11 @@ function PageBlogList() {
           return prevPostList.filter((post) => post.id !== deletingPostId);
         });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error("에러 응답");
+        setError(error);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -47,6 +59,7 @@ function PageBlogList() {
             key={post.id}
             post={post}
             handleDelete={() => deletePost(post)}
+            loading={loading}
           />
         ))}
       </div>
