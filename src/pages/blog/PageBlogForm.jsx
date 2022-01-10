@@ -2,9 +2,13 @@ import Axios from "axios";
 import BlogForm from "components/blog/BlogForm";
 import DebugStates from "components/DebugStates";
 import useFieldValues from "hooks/useFieldValues";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PageBlogForm() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const { postId } = useParams();
   const navigate = useNavigate();
 
@@ -14,14 +18,22 @@ function PageBlogForm() {
   });
 
   const savePost = async () => {
+    // 통신 중
+    setLoading(true);
+    setError(null);
+
     const url = "http://127.0.0.1:8000/blog/api/posts/";
 
     try {
       await Axios.post(url, fieldValues);
       navigate(`/blog/`);
     } catch (e) {
+      setError(e);
       console.error(e);
     }
+    // 통신이 끝난 후
+    // async()에는 finally가 없음.
+    setLoading(false);
   };
 
   return (
@@ -33,6 +45,7 @@ function PageBlogForm() {
         fieldValues={fieldValues}
         handleFieldChange={handleFieldChange}
         handleSubmit={(e) => savePost(e)}
+        loading={loading}
       />
       <DebugStates fieldValues={fieldValues} />
     </div>
