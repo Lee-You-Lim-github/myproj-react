@@ -1,7 +1,8 @@
 import Axios from "axios";
+import BlogList from "components/blogs/BlogList";
 import { useState, useEffect } from "react";
 
-function PageBlog() {
+function PageBlogList() {
   const [blogList, setBlogList] = useState([]);
 
   useEffect(() => {
@@ -25,12 +26,10 @@ function PageBlog() {
       <h2 className="text-red-400 border-b-2 border-red-300">Blog</h2>
       <div>
         {blogList.map((blog) => (
-          <ul key={blog.id}>
-            <li>{blog.title}</li>
-          </ul>
+          <BlogList key={blog.id} blog={blog} />
         ))}
       </div>
     </div>
   );
 }
-export default PageBlog;
+export default PageBlogList;
