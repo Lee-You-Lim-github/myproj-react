@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-function BlogList({ blog }) {
+function BlogList({ post }) {
   const navigate = useNavigate();
 
-  const { id, title } = blog;
+  const { id, title } = post;
   return (
     <div>
       <ul>
-        <a onClick={() => navigate(`/blogs/${id}`)}>{title}</a>
+        <li onClick={() => navigate(`/blog/${id}`)}>{title}</li>
       </ul>
     </div>
   );
