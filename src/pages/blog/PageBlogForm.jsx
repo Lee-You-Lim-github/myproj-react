@@ -24,7 +24,7 @@ function PageBlogForm() {
       setLoading(true);
       setError(null);
 
-      const url = `http://127.0.0.1:8000/blog/api/posts/${postId}`;
+      const url = `http://127.0.0.1:8000/blog/api/posts/${postId}/`;
 
       try {
         const response = await Axios.get(url);
@@ -36,6 +36,8 @@ function PageBlogForm() {
     };
     if (postId) fetchPost();
     else clearFieldValues();
+
+    // useCallback으로 clearFieldValues()의 반복을 없앰  --> 값의 변경을 최소화
   }, [postId, setFieldValues, clearFieldValues]);
 
   // 값 저장
@@ -44,14 +46,20 @@ function PageBlogForm() {
     setLoading(true);
     setError(null);
 
-    const url = "http://127.0.0.1:8000/blog/api/posts/";
+    const url = !postId
+      ? "http://127.0.0.1:8000/blog/api/posts/"
+      : `http://127.0.0.1:8000/blog/api/posts/${postId}/`;
 
     try {
-      await Axios.post(url, fieldValues);
+      if (!postId) {
+        await Axios.post(url, fieldValues);
+      } else {
+        await Axios.put(url, fieldValues);
+      }
       navigate(`/blog/`);
-    } catch (e) {
-      setError(e);
-      console.error(e);
+    } catch (error) {
+      setError(error);
+      console.error(error);
     }
     // 통신이 끝난 후
     // async()에는 finally가 없음.
