@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
+import BlogDetail from "components/blog/BlogDetail";
 
 function PageBlogDetail() {
   const [post, setPost] = useState([]);
@@ -8,23 +9,20 @@ function PageBlogDetail() {
   const { postId } = useParams();
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      const url = `http://localhost:8000/blog/api/posts/${postId}/`;
+    const url = `http://localhost:8000/blog/api/posts/${postId}/`;
 
-      try {
-        const response = await Axios.get(url);
-        setPost(response.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    if (postId) fetchBlog();
+    Axios.get(url)
+      .then(({ data }) => {
+        setPost(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [postId]);
 
   return (
     <div>
-      <h2>Blog Detail</h2>
-      {post}
+      <BlogDetail post={post} />
     </div>
   );
 }

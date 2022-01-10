@@ -7,7 +7,7 @@ function BlogList({ post }) {
   return (
     <div>
       <ul>
-        <li onClick={() => navigate(`/blog/${id}`)}>{title}</li>
+        <li onClick={() => navigate(`/blog/${id}/`)}>{title}</li>
       </ul>
     </div>
   );

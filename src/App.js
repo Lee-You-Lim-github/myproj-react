@@ -22,7 +22,7 @@ function App() {
         <Route path="/reviews/:reviewId/edit/" element={<PageReviewForm />} />
         <Route path="/examples/components/" element={<Components />} />
         <Route path="/blog/" element={<PageBlogList />} />
-        <Route pathe="/blog/:postId/" element={<PageBlogDetail />} />
+        <Route path="/blog/:postId/" element={<PageBlogDetail />} />
       </Routes>
     </div>
   );
