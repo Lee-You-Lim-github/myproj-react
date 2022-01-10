@@ -24,12 +24,30 @@ function PageBlogList() {
       });
   };
 
+  const deletePost = (deletingPost) => {
+    const { id: deletingPostId } = deletingPost;
+    const url = `http://127.0.0.1:8000/blog/api/posts/${deletingPostId}`;
+
+    Axios.delete(url)
+      .then(() => {
+        console.log("삭제 성공");
+        setPostList((prevPostList) => {
+          return prevPostList.filter((post) => post.id !== deletingPostId);
+        });
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div>
       <h2 className="text-red-400 border-b-2 border-red-300">Blog</h2>
       <div>
         {postList.map((post) => (
-          <BlogList key={post.id} post={post} />
+          <BlogList
+            key={post.id}
+            post={post}
+            handleDelete={() => deletePost(post)}
+          />
         ))}
       </div>
       <button
