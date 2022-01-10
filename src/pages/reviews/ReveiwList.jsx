@@ -28,9 +28,7 @@ function PageReviewList() {
       })
       // 400 이상
       .catch((error) => {
-        console.group("에러 응답");
-        console.log(error);
-        console.groupEnd();
+        console.error("에러 응답");
         setError(error);
       })
       .finally(() => {
@@ -57,7 +55,7 @@ function PageReviewList() {
         });
         // 선택지#2) 젠체를 새로고침
       })
-      .catch(() => {
+      .catch((error) => {
         setError(error);
       })
       .finally(() => {
@@ -73,7 +71,12 @@ function PageReviewList() {
       {loading && <div>Loading...</div>}
       {error && <div>통신 중에 오류가 발생했습니다.</div>}
 
-      <button className="bg-yellow-300 hover:bg-red-300 mr-1">새로고침</button>
+      <button
+        className="bg-yellow-300 hover:bg-red-300 mr-1"
+        onClick={() => refetch()}
+      >
+        새로고침
+      </button>
 
       <button
         onClick={() => navigate("/reviews/new")}
@@ -86,7 +89,9 @@ function PageReviewList() {
           <Review
             key={review.id}
             review={review}
+            handleEdit={() => navigate(`/reviews/${review.id}/edit/`)}
             handleDelete={() => deleteReview(review)}
+            loading={loading}
           />
         ))}
       </div>
