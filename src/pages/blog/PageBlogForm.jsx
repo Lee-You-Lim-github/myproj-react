@@ -2,7 +2,7 @@ import Axios from "axios";
 import BlogForm from "components/blog/BlogForm";
 import DebugStates from "components/DebugStates";
 import useFieldValues from "hooks/useFieldValues";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PageBlogForm() {
@@ -12,10 +12,28 @@ function PageBlogForm() {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const { fieldValues, handleFieldChange } = useFieldValues({
+  const { fieldValues, handleFieldChange, setFieldValues } = useFieldValues({
     title: "",
     content: "",
   });
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+
+    const url = `http://127.0.0.1:8000/blog/api/posts/${postId}`;
+
+    Axios.get(url)
+      .then(({ data }) => {
+        setFieldValues(data);
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [postId, setFieldValues]);
 
   const savePost = async () => {
     // 통신 중
