@@ -4,7 +4,7 @@ import Axios from "axios";
 
 function BlogForm({ fieldValues, handleFieldChange, handleSubmit }) {
   // 저장이 안 되었을 경우 !경고!
-  const handleClickedSubmitButton = () => {
+  const clickedSubmitButton = () => {
     if (handleSubmit) {
       return handleSubmit();
     } else {
@@ -33,12 +33,12 @@ function BlogForm({ fieldValues, handleFieldChange, handleSubmit }) {
           className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           name="content"
           value={fieldValues.content}
-          onChange={() => handleClickedSubmitButton()}
+          onChange={(e) => handleFieldChange(e)}
         ></textarea>
       </div>
       <button
         className="shadow border bg-blue-100 hover:bg-blue-300 border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight"
-        onClick={() => handleSubmit()}
+        onClick={() => clickedSubmitButton()}
       >
         저장하기
       </button>
