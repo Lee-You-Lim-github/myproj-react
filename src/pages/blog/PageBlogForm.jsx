@@ -6,20 +6,22 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function PageBlogForm() {
   const { postId } = useParams();
+  const navigate = useNavigate();
 
   const { fieldValues, handleFieldChange } = useFieldValues({
     title: "",
     content: "",
   });
 
-  const navigate = useNavigate();
-
-  const savePost = () => {
+  const savePost = async () => {
     const url = "http://127.0.0.1:8000/blog/api/posts/";
 
-    Axios.post(url, fieldValues)
-      .then(() => navigate(`/blog/`))
-      .catch((error) => console.error(error));
+    try {
+      await Axios.post(url, fieldValues);
+      navigate(`/blog/`);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
