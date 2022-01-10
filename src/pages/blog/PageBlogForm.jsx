@@ -12,14 +12,15 @@ function PageBlogForm() {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const { fieldValues, handleFieldChange, setFieldValues } = useFieldValues({
-    title: "",
-    content: "",
-  });
+  const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
+    useFieldValues({
+      title: "",
+      content: "",
+    });
 
   // 수정값 읽어 옴.
   useEffect(() => {
-    const fn = async () => {
+    const fetchPost = async () => {
       setLoading(true);
       setError(null);
 
@@ -33,8 +34,9 @@ function PageBlogForm() {
       }
       setLoading(false);
     };
-    fn();
-  }, [postId, setFieldValues]);
+    if (postId) fetchPost();
+    else clearFieldValues();
+  }, [postId, setFieldValues, clearFieldValues]);
 
   // 값 저장
   const savePost = async () => {

@@ -58,6 +58,7 @@ function PageBlogList() {
           <BlogList
             key={post.id}
             post={post}
+            handleEdit={() => navigate(`/blog/${post.id}/edit/`)}
             handleDelete={() => deletePost(post)}
             loading={loading}
           />
