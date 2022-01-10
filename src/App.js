@@ -8,6 +8,7 @@ import Components from "pages/examples/Components";
 import PageReviewForm from "pages/reviews/PageReviewForm";
 import PageBlogList from "pages/blog/PageBlogList";
 import PageBlogDetail from "pages/blog/PageBlogDetail";
+import PageBlogForm from "pages/blog/PageBlogForm";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/examples/components/" element={<Components />} />
         <Route path="/blog/" element={<PageBlogList />} />
         <Route path="/blog/:postId/" element={<PageBlogDetail />} />
+        <Route path="/blog/new/" element={<PageBlogForm />} />
       </Routes>
     </div>
   );

@@ -1,9 +1,12 @@
 import Axios from "axios";
 import BlogList from "components/blog/BlogList";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PageBlogList() {
   const [postList, setPostList] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     refetch();
@@ -29,6 +32,12 @@ function PageBlogList() {
           <BlogList key={post.id} post={post} />
         ))}
       </div>
+      <button
+        onClick={() => navigate(`/blog/new/`)}
+        className="shadow border bg-blue-100 hover:bg-blue-300 border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight"
+      >
+        새 포스팅
+      </button>
     </div>
   );
 }
