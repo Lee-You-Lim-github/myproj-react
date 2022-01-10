@@ -15,7 +15,7 @@ function App() {
     <div className="app">
       <TopNav />
       <Routes>
-        <Route path="/" element={<Navigate to="/blogs/" />} />
+        <Route path="/" element={<Navigate to="/blog/" />} />
         <Route path="/accounts/login/" element={<Login />} />
         <Route path="/accounts/profile/" element={<Profile />} />
         <Route path="/reviews/" element={<ReviewList />} />

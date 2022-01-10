@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 function BlogDetail({ post }) {
   const { title, content, created_at } = post;
 
+  const randomImage = "https://placeimg.com/640/480/animals";
+
   const navigate = useNavigate();
 
   return (
@@ -12,6 +14,7 @@ function BlogDetail({ post }) {
       <ul>
         <li>{title}</li>
         <li>{content}</li>
+        <img src={randomImage} />
         <li>포스팅 시간: {created_at}</li>
       </ul>
       <button
