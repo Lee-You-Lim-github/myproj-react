@@ -17,24 +17,26 @@ function PageBlogForm() {
     content: "",
   });
 
+  // 수정값 읽어 옴.
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    const fn = async () => {
+      setLoading(true);
+      setError(null);
 
-    const url = `http://127.0.0.1:8000/blog/api/posts/${postId}`;
+      const url = `http://127.0.0.1:8000/blog/api/posts/${postId}`;
 
-    Axios.get(url)
-      .then(({ data }) => {
-        setFieldValues(data);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      try {
+        const response = await Axios.get(url);
+        setFieldValues(response.data);
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false);
+    };
+    fn();
   }, [postId, setFieldValues]);
 
+  // 값 저장
   const savePost = async () => {
     // 통신 중
     setLoading(true);
