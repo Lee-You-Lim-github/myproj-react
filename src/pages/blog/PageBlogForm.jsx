@@ -2,9 +2,11 @@ import Axios from "axios";
 import BlogForm from "components/blog/BlogForm";
 import DebugStates from "components/DebugStates";
 import useFieldValues from "hooks/useFieldValues";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function PageBlogForm() {
+  const { postId } = useParams();
+
   const { fieldValues, handleFieldChange } = useFieldValues({
     title: "",
     content: "",
@@ -22,7 +24,9 @@ function PageBlogForm() {
 
   return (
     <div>
-      <h2 className="text-green-400 border-b-2 border-green-300">Blog Form</h2>
+      <h2 className="text-green-400 border-b-2 border-green-300">
+        Blog Form {postId ? "수정" : "생성"}
+      </h2>
       <BlogForm
         fieldValues={fieldValues}
         handleFieldChange={handleFieldChange}
