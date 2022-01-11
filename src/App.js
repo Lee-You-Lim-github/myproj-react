@@ -5,6 +5,7 @@ import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TopNav from "components/TopNav";
 import Components from "pages/examples/Components";
+import useWindowWidth from "pages/examples/useWindowWidth";
 import PageReviewForm from "pages/reviews/PageReviewForm";
 import PageBlogList from "pages/blog/PageBlogList";
 import PageBlogDetail from "pages/blog/PageBlogDetail";
@@ -12,6 +13,7 @@ import PageBlogForm from "pages/blog/PageBlogForm";
 import Clock from "pages/examples/Clock";
 
 function App() {
+  const windowWidth = useWindowWidth();
   return (
     <>
       <div className="app">
@@ -29,6 +31,8 @@ function App() {
           <Route path="/blog/new/" element={<PageBlogForm />} />
           <Route path="/blog/:postId/edit/" element={<PageBlogForm />} />
         </Routes>
+        <hr />
+        윈도우 가로크기 : {windowWidth}px
       </div>
       <div>
         <Routes>

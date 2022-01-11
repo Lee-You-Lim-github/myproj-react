@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
 import "./Clock.css";
 
-const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THR", "FRI", "STA"];
+import useCurrentTime from "./useCurrentTime";
+
+const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "STA"];
 
 function Clock() {
   const [date, setDate] = useState(new Date());
+  const currentTime = useCurrentTime();
 
   useEffect(
     // 이 함수는 현 컴포넌트가 mount 시에 호출됩니다.
@@ -32,7 +35,8 @@ function Clock() {
         {/* <p className="time">{date.toLocaleTimeString('en-us')}</p> */}
         {/* <p className="time">{date.toISOString().slice(11, 19)}</p> */}
         <p className="time">
-          {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
+          {/* {date.getHours()}:{date.getMinutes()}:{date.getSeconds()} */}
+          {currentTime}
         </p>
         <p className="text">Powered by React.js</p>
       </div>
