@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import DebugStates from "components/DebugStates";
 import useFieldValues from "hooks/useFieldValues";
 import ReviewForm from "components/ReveiwForm";
-import { API_HOST } from "Constants";
+import { axiosInstance } from "api/base";
 
 function PageReviewForm() {
   // 상탯값 정의. 훅 호출
@@ -40,10 +39,10 @@ function PageReviewForm() {
       setLoading(false);
       setError(null);
 
-      const url = `${API_HOST}/shop/api/reviews/${reviewId}/`;
+      const url = `/shop/api/reviews/${reviewId}/`;
 
       try {
-        const response = await Axios.get(url);
+        const response = await axiosInstance.get(url);
         setFieldValues(response.data);
       } catch (e) {
         setError(e);
@@ -60,14 +59,14 @@ function PageReviewForm() {
     setError(null);
 
     const url = !reviewId
-      ? `${API_HOST}/shop/api/reviews/`
-      : `${API_HOST}/shop/api/reviews/${reviewId}/`;
+      ? `/shop/api/reviews/`
+      : `/shop/api/reviews/${reviewId}/`;
 
     try {
       if (!reviewId) {
-        await Axios.post(url, fieldValues);
+        await axiosInstance.post(url, fieldValues);
       } else {
-        await Axios.put(url, fieldValues);
+        await axiosInstance.put(url, fieldValues);
       }
       navigate("/reviews/");
     } catch (e) {

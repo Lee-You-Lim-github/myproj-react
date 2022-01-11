@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import Axios from "axios";
 import { useParams } from "react-router-dom";
 import BlogDetail from "components/blog/BlogDetail";
-import { API_HOST } from "Constants";
+import { axiosInstance } from "api/base";
 
 function PageBlogDetail() {
   const [post, setPost] = useState([]);
@@ -10,9 +9,10 @@ function PageBlogDetail() {
   const { postId } = useParams();
 
   useEffect(() => {
-    const url = `${API_HOST}/blog/api/posts/${postId}/`;
+    const url = `/blog/api/posts/${postId}/`;
 
-    Axios.get(url)
+    axiosInstance
+      .get(url)
       .then(({ data }) => {
         setPost(data);
       })
