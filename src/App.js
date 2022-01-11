@@ -15,6 +15,9 @@ import CssModule from "pages/examples/CssModule";
 import CssInJs from "pages/examples/CssInJs";
 import ContextApiSample from "pages/examples/ContextApiSample";
 import ContextApiSample2 from "pages/examples/ContextApiSample2";
+import PageDiaryList from "pages/diarys/PageDiaryList";
+import PageDiaryDetail from "pages/diarys/PageDiaryDetail";
+import PageDiaryForm from "pages/diarys/PageDiaryForm";
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -29,11 +32,11 @@ function App() {
           <Route path="/reviews/" element={<ReviewList />} />
           <Route path="/reviews/new/" element={<PageReviewForm />} />
           <Route path="/reviews/:reviewId/edit/" element={<PageReviewForm />} />
-          <Route path="/examples/components/" element={<Components />} />
           <Route path="/blog/" element={<PageBlogList />} />
           <Route path="/blog/:postId/" element={<PageBlogDetail />} />
           <Route path="/blog/new/" element={<PageBlogForm />} />
           <Route path="/blog/:postId/edit/" element={<PageBlogForm />} />
+          <Route path="/examples/components/" element={<Components />} />
           <Route path="/examples/css-module/" element={<CssModule />} />
           <Route path="/examples/css-in-js/" element={<CssInJs />} />
           <Route path="/examples/context-api/" element={<ContextApiSample />} />
@@ -41,6 +44,9 @@ function App() {
             path="/examples/context-api-2/"
             element={<ContextApiSample2 />}
           />
+          <Route path="/diary/" element={<PageDiaryList />} />
+          <Route path="/diary/:diaryId/" element={<PageDiaryDetail />} />
+          <Route path="/diary/new" element={<PageDiaryForm />} />
         </Routes>
         <hr />
         윈도우 가로크기 : {windowWidth}px
