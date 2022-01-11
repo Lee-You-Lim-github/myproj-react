@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 import BlogDetail from "components/blog/BlogDetail";
+import { API_HOST } from "Constants";
 
 function PageBlogDetail() {
   const [post, setPost] = useState([]);
@@ -9,7 +10,7 @@ function PageBlogDetail() {
   const { postId } = useParams();
 
   useEffect(() => {
-    const url = `http://localhost:8000/blog/api/posts/${postId}/`;
+    const url = `${API_HOST}/blog/api/posts/${postId}/`;
 
     Axios.get(url)
       .then(({ data }) => {
