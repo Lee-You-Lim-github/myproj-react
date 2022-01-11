@@ -1,8 +1,8 @@
-import Axios from "axios";
 import BlogList from "components/blog/BlogList";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_HOST } from "Constants";
+
+import { axiosInstance } from "api/base";
 
 function PageBlogList() {
   const [postList, setPostList] = useState([]);
@@ -19,9 +19,10 @@ function PageBlogList() {
     setLoading(true);
     setError(null);
 
-    const url = `${API_HOST}/blog/api/posts/`;
+    const url = `/blog/api/posts/`;
 
-    Axios.get(url)
+    axiosInstance
+      .get(url)
       .then(({ data }) => setPostList(data))
       .catch((error) => {
         console.error("에러 응답");
@@ -35,9 +36,10 @@ function PageBlogList() {
     setError(null);
 
     const { id: deletingPostId } = deletingPost;
-    const url = `${API_HOST}/blog/api/posts/${deletingPostId}`;
+    const url = `/blog/api/posts/${deletingPostId}`;
 
-    Axios.delete(url)
+    axiosInstance
+      .delete(url)
       .then(() => {
         console.log("삭제 성공");
         setPostList((prevPostList) => {
