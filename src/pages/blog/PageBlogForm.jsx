@@ -17,6 +17,8 @@ function PageBlogForm() {
   const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
     useFieldValues(INIT_FIELD_VALUES);
 
+  const [errorMessages, setErrorMessages] = useState({});
+
   // 수정값 읽어 옴.
   useEffect(() => {
     const fetchPost = async () => {
@@ -44,6 +46,7 @@ function PageBlogForm() {
     // 통신 중
     setLoading(true);
     setError(null);
+    setErrorMessages({});
 
     const url = !postId ? `/blog/api/posts/` : `/blog/api/posts/${postId}/`;
 
@@ -54,9 +57,12 @@ function PageBlogForm() {
         await axiosInstance.put(url, fieldValues);
       }
       navigate(`/blog/`);
-    } catch (error) {
-      setError(error);
-      console.error(error);
+    } catch (e) {
+      setError(e);
+      console.log(e);
+      console.error(e.response);
+
+      setErrorMessages(e.response.data);
     }
     // 통신이 끝난 후
     // async()에는 finally가 없음.
@@ -73,8 +79,13 @@ function PageBlogForm() {
         handleFieldChange={handleFieldChange}
         handleSubmit={(e) => savePost(e)}
         loading={loading}
+        errorMessages={errorMessages}
       />
-      <DebugStates fieldValues={fieldValues} />
+      <DebugStates
+        postId={postId}
+        fieldValues={fieldValues}
+        errorMessages={errorMessages}
+      />
     </div>
   );
 }
