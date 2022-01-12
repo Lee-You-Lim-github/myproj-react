@@ -1,0 +1,18 @@
+// sass의 기능: 함수, 중첩 기능 적용 가능
+
+.css-module {
+  background-color: yellow;
+  color: red;
+
+  h2 {
+    color: purple;
+  }
+
+  .content {
+    background-color: green;
+  }
+
+  .date {
+    background-color: pink;
+  }
+}
