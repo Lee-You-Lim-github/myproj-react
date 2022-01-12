@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { axiosInstance } from "api/base";
 
+const INIT_FIELD_VALUES = { title: "", content: "" };
+
 function PageBlogForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,10 +15,7 @@ function PageBlogForm() {
   const navigate = useNavigate();
 
   const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
-    useFieldValues({
-      title: "",
-      content: "",
-    });
+    useFieldValues(INIT_FIELD_VALUES);
 
   // 수정값 읽어 옴.
   useEffect(() => {
