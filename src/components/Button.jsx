@@ -10,7 +10,10 @@ const COLORS = {
 
 function Button({ type, children, onClick }) {
   return (
-    <button className={`${COLORS[type]} font-bold py-2 px-4 rounded`}>
+    <button
+      onClick={onClick}
+      className={`${COLORS[type]} font-bold py-2 px-4 rounded`}
+    >
       {children}
     </button>
   );
