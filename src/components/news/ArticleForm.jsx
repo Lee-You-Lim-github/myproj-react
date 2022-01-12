@@ -11,6 +11,14 @@ import { useApiAxios } from "api/base";
 const INIT_FIELD_VALUES = { title: "", content: "" };
 
 function ArticleForm({ articleId, handleDidSave }) {
+  // aritcleId 값이 있을 때에만 조회
+  // article => manual=false
+  // !article => manual=true
+  const [{ data: article, loading: getLoading, error: getError }] = useApiAxios(
+    `/news/api/articles/${articleId}/`,
+    { manual: !articleId }
+  );
+
   const [
     {
       loading: saveLoading,
@@ -20,13 +28,17 @@ function ArticleForm({ articleId, handleDidSave }) {
     saveRequest,
   ] = useApiAxios(
     {
-      url: "/news/api/articles/",
-      method: "POST",
+      url: !articleId
+        ? "/news/api/articles/"
+        : `/news/api/articles/${articleId}/`,
+      method: !articleId ? "POST" : "PUT",
     },
     { manual: true }
   );
 
-  const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
+  const { fieldValues, handleFieldChange } = useFieldValues(
+    article || INIT_FIELD_VALUES
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,6 +97,9 @@ function ArticleForm({ articleId, handleDidSave }) {
         </div>
       </form>
       <DebugStates
+        article={article}
+        getLoading={getLoading}
+        getError={getError}
         saveErrorMessages={saveErrorMessages}
         fieldValues={fieldValues}
       />
