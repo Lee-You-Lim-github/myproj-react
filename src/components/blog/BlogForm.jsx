@@ -2,7 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Axios from "axios";
 
-function BlogForm({ fieldValues, handleFieldChange, handleSubmit, loading }) {
+function BlogForm({
+  fieldValues,
+  handleFieldChange,
+  handleSubmit,
+  loading,
+  errorMessages,
+}) {
   // 저장이 안 되었을 경우 !경고!
   const clickedSubmitButton = () => {
     if (handleSubmit) {
@@ -18,6 +24,8 @@ function BlogForm({ fieldValues, handleFieldChange, handleSubmit, loading }) {
         <label className="block text-gray-700 text-sm font-bold mb-2">
           제목
         </label>
+        <div>{errorMessages.title}</div>
+
         <input
           className="shadow appe`arance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
@@ -31,6 +39,7 @@ function BlogForm({ fieldValues, handleFieldChange, handleSubmit, loading }) {
         <label className="block text-gray-700 text-sm font-bold mb-2">
           콘텐츠
         </label>
+        <div>{errorMessages.content}</div>
         <textarea
           className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           name="content"

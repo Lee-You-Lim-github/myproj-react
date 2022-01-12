@@ -5,6 +5,8 @@ import useFieldValues from "hooks/useFieldValues";
 import ReviewForm from "components/ReveiwForm";
 import { axiosInstance } from "api/base";
 
+const INIT_FIELD_VALUES = { title: "", content: "" };
+
 function PageReviewForm() {
   // 상탯값 정의. 훅 호출
   const [loading, setLoading] = useState(false);
@@ -13,13 +15,10 @@ function PageReviewForm() {
   const navigate = useNavigate();
   const { reviewId } = useParams();
   const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
-    useFieldValues({
-      score: 5,
-      content: "",
-    });
+    useFieldValues(INIT_FIELD_VALUES);
 
   // 에러 메세지
-  const [errorMessages, setErrorMessages] = useState([]);
+  const [errorMessages, setErrorMessages] = useState({});
 
   useEffect(() => {
     const fetchReview = async () => {

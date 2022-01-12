@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { axiosInstance } from "api/base";
 
+const INIT_FIELD_VALUES = { title: "", content: "" };
+
 function PageBlogForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,10 +15,9 @@ function PageBlogForm() {
   const navigate = useNavigate();
 
   const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
-    useFieldValues({
-      title: "",
-      content: "",
-    });
+    useFieldValues(INIT_FIELD_VALUES);
+
+  const [errorMessages, setErrorMessages] = useState({});
 
   // 수정값 읽어 옴.
   useEffect(() => {
@@ -45,6 +46,7 @@ function PageBlogForm() {
     // 통신 중
     setLoading(true);
     setError(null);
+    setErrorMessages({});
 
     const url = !postId ? `/blog/api/posts/` : `/blog/api/posts/${postId}/`;
 
@@ -55,9 +57,12 @@ function PageBlogForm() {
         await axiosInstance.put(url, fieldValues);
       }
       navigate(`/blog/`);
-    } catch (error) {
-      setError(error);
-      console.error(error);
+    } catch (e) {
+      setError(e);
+      console.log(e);
+      console.error(e.response);
+
+      setErrorMessages(e.response.data);
     }
     // 통신이 끝난 후
     // async()에는 finally가 없음.
@@ -74,8 +79,13 @@ function PageBlogForm() {
         handleFieldChange={handleFieldChange}
         handleSubmit={(e) => savePost(e)}
         loading={loading}
+        errorMessages={errorMessages}
       />
-      <DebugStates fieldValues={fieldValues} />
+      <DebugStates
+        postId={postId}
+        fieldValues={fieldValues}
+        errorMessages={errorMessages}
+      />
     </div>
   );
 }
