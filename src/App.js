@@ -23,6 +23,7 @@ import PageDiaryForm from "pages/diarys/PageDiaryForm";
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 import PageNewsIndex from "pages/news/PageNewsIndex";
 import PageNewsArticleDetail from "pages/news/PageNewsArticleDetail";
+import PageNewsArticleForm from "pages/news/PageNewsArticleForm";
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -52,8 +53,14 @@ function App() {
           <Route path="/diary/" element={<PageDiaryList />} />
           <Route path="/diary/:diaryId/" element={<PageDiaryDetail />} />
           <Route path="/diary/new" element={<PageDiaryForm />} />
+
           <Route path="/news/" element={<PageNewsIndex />} />
+          <Route path="/news/new" element={<PageNewsArticleForm />} />
           <Route path="/news/:articleId/" element={<PageNewsArticleDetail />} />
+          <Route
+            path="/news/:articleId/edit"
+            element={<PageNewsArticleForm />}
+          />
         </Routes>
         <hr />
         윈도우 가로크기 : {windowWidth}px
