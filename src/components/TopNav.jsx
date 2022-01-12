@@ -19,6 +19,7 @@ function TopNav() {
         <li>
           <MyLink to="/blog/">블로그</MyLink>
         </li>
+
         {/* <li>
           <MyLink to="/examples/clock/">시계</MyLink>
         </li>
@@ -36,6 +37,9 @@ function TopNav() {
         </li> */}
         <li>
           <MyLink to="/diary/">!!다이어리!!</MyLink>
+        </li>
+        <li>
+          <MyLink to="/news/">뉴스룸</MyLink>
         </li>
       </ul>
     </div>

@@ -10,14 +10,18 @@ import PageReviewForm from "pages/reviews/PageReviewForm";
 import PageBlogList from "pages/blog/PageBlogList";
 import PageBlogDetail from "pages/blog/PageBlogDetail";
 import PageBlogForm from "pages/blog/PageBlogForm";
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 import Clock from "pages/examples/Clock";
 import CssModule from "pages/examples/CssModule";
 import CssInJs from "pages/examples/CssInJs";
 import ContextApiSample from "pages/examples/ContextApiSample";
 import ContextApiSample2 from "pages/examples/ContextApiSample2";
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 import PageDiaryList from "pages/diarys/PageDiaryList";
 import PageDiaryDetail from "pages/diarys/PageDiaryDetail";
 import PageDiaryForm from "pages/diarys/PageDiaryForm";
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+import PageNewsIndex from "pages/news/PageNewsIndex";
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -47,6 +51,7 @@ function App() {
           <Route path="/diary/" element={<PageDiaryList />} />
           <Route path="/diary/:diaryId/" element={<PageDiaryDetail />} />
           <Route path="/diary/new" element={<PageDiaryForm />} />
+          <Route path="/news/" element={<PageNewsIndex />} />
         </Routes>
         <hr />
         윈도우 가로크기 : {windowWidth}px
