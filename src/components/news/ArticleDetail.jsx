@@ -1,7 +1,7 @@
 import { useApiAxios } from "api/base";
 import LoadingIndicator from "components/LoadingIndicator";
 import { useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function ArticleDetail({ articleId }) {
   const [{ data: article, loading, error }, refetch] = useApiAxios(
