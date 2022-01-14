@@ -1,9 +1,15 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
-function SpotSummary(props) {
+function SpotSummary({ spot }) {
   return (
     <div>
-      <h2>여행지 list 중 지역, 사진, 타이틀만 보여 줌.</h2>
+      <div>{spot.area}</div>
+      <Link to={`/tour/${spot.id}/`}>
+        <div>{spot.destination}</div>
+        <div>
+          <img src={spot.photo} alt={spot.destination} />
+        </div>
+      </Link>
     </div>
   );
 }
