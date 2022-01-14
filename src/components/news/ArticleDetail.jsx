@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 function ArticleDetail({ articleId }) {
   const [{ data: article, loading, error }, refetch] = useApiAxios(
-    `/news/api/articles/${articleId}/`
+    `/news/api/articles/${articleId}/`,
+    { manual: true }
   );
 
   const [{ loading: deleteLoading, error: deleteError }, deleteArticle] =
@@ -41,6 +42,9 @@ function ArticleDetail({ articleId }) {
       {article && (
         <>
           <h3 className="text-2xl my-5">{article.title}</h3>
+          {article.photo && (
+            <img src={article.photo} alt={article.title} className="rounded" />
+          )}
           <div>
             {article.content.split(/[\r\n]+/).map((line, index) => (
               <p className="my-3" key={index}>

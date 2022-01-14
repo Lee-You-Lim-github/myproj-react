@@ -24,6 +24,9 @@ import PageDiaryForm from "pages/diarys/PageDiaryForm";
 import PageNewsIndex from "pages/news/PageNewsIndex";
 import PageNewsArticleDetail from "pages/news/PageNewsArticleDetail";
 import PageNewsArticleForm from "pages/news/PageNewsArticleForm";
+import PageTourIndex from "pages/tour/PageTourIndex";
+import PageTourSpotDetail from "pages/tour/PageTourSpotDetail";
+import PageTourSpotForm from "pages/tour/PageTourSpotForm ";
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -32,7 +35,7 @@ function App() {
       <div className="app">
         <TopNav />
         <Routes>
-          <Route path="/" element={<Navigate to="/blog/" />} />
+          <Route path="/" element={<Navigate to="/tour/" />} />
           <Route path="/accounts/login/" element={<Login />} />
           <Route path="/accounts/profile/" element={<Profile />} />
           <Route path="/reviews/" element={<ReviewList />} />
@@ -61,6 +64,11 @@ function App() {
             path="/news/:articleId/edit/"
             element={<PageNewsArticleForm />}
           />
+
+          <Route path="/tour/" element={<PageTourIndex />} />
+          <Route path="/tour/new/" element={<PageTourSpotForm />} />
+          <Route path="/tour/:spotId/" element={<PageTourSpotDetail />} />
+          <Route path="/tour/:spotId/edit" element={<PageTourSpotForm />} />
         </Routes>
         <hr />
         윈도우 가로크기 : {windowWidth}px
