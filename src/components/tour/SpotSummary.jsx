@@ -7,7 +7,13 @@ function SpotSummary({ spot }) {
       <Link to={`/tour/${spot.id}/`}>
         <div>{spot.destination}</div>
         <div>
-          <img src={spot.photo} alt={spot.destination} />
+          {spot.photo && (
+            <img
+              src={spot.photo}
+              alt={spot.destination}
+              className="w-10 h-10"
+            />
+          )}
         </div>
       </Link>
     </div>
