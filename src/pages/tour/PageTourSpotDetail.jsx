@@ -1,7 +1,13 @@
+import H1 from "components/H1";
+import SpotDetail from "components/tour/SpotDetail";
+import { useParams } from "react-router-dom";
+
 function PageTourSpotDetail() {
+  const { spotId } = useParams();
   return (
     <div>
-      <h2>국내 여행 Spot 보여주기</h2>
+      <H1>{`${spotId}번째 여행지`}</H1>
+      <SpotDetail spotId={spotId} />
     </div>
   );
 }
