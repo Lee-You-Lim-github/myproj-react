@@ -1,8 +1,10 @@
 import { useApiAxios } from "api/base";
 import Button from "components/Button";
 import DebugStates from "components/DebugStates";
+import LoadingIndicator from "components/LoadingIndicator";
 import useFieldValues from "hooks/useFieldValues";
-import { useNavigate } from "react-router-dom";
+import produce from "immer";
+import { useEffect } from "react";
 
 const INITAIL_AREA = ["지역", "대전광역시", "세종특별자치시", "제주특별자치시"];
 
@@ -12,17 +14,43 @@ const INITAIL_SPOT_VALUE = {
   content: "",
 };
 
-function SpotForm() {
-  const { fieldValues, handleFieldChange } = useFieldValues(INITAIL_SPOT_VALUE);
-  const navigate = useNavigate();
+// !spotId : 생성
+// spotId : 수정
 
-  const [{ loading: postLoading, error: postError }, saveSpot] = useApiAxios(
+function SpotForm({ spotId, handleDidSave }) {
+  // 수정 : 초기값 채우기
+  const [{ data: getspot, loading: getLoading, error: getError }, refetch] =
+    useApiAxios(`/tour/api/spots/${spotId}/`, { manual: !spotId });
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  const { fieldValues, handleFieldChange, setFieldValues, formData } =
+    useFieldValues(getspot || INITAIL_SPOT_VALUE);
+
+  const [
     {
-      url: `/tour/api/spots/`,
-      method: "POST",
+      loading: postLoading,
+      error: postError,
+      errorMessages: saveErrorMessages,
+    },
+    saveSpot,
+  ] = useApiAxios(
+    {
+      url: !spotId ? "/tour/api/spots/" : `/tour/api/spots/${spotId}/`,
+      method: !spotId ? "POST" : "PUT",
     },
     { manual: true }
   );
+
+  useEffect(() => {
+    setFieldValues(
+      produce((draft) => {
+        draft.photo = "";
+      })
+    );
+  }, [getspot]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,17 +58,20 @@ function SpotForm() {
     console.log("저장!!!");
 
     saveSpot({
-      data: fieldValues,
+      data: formData,
     }).then((response) => {
       // 저장이 완료되었다면 detail 페이지로 가도록.
-      const savedSpotId = response.data.id;
-      navigate(`/tour/${savedSpotId}`);
+      const savedSpot = response.data;
+      if (handleDidSave) handleDidSave(savedSpot);
     });
   };
 
   return (
     <div>
-      <h2>새 Sopt 작성</h2>
+      {spotId ? <h2>Spot 수정</h2> : <h2>New Sopt 작성</h2>}
+
+      {postLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
+      {postError && "에러가 났어요!"}
 
       <form
         onSubmit={handleSubmit}
@@ -72,6 +103,9 @@ function SpotForm() {
             onChange={handleFieldChange}
             className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           />
+          {saveErrorMessages.destination?.map((message, index) => (
+            <p key={index}>{message}</p>
+          ))}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -84,13 +118,25 @@ function SpotForm() {
             onChange={handleFieldChange}
             className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           />
+          {saveErrorMessages.content?.map((message, index) => (
+            <p key={index}>{message}</p>
+          ))}
         </div>
-        {/* <div className="mb-4">
+        <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             사진 업로드
           </label>
-          <input type="file" name="photo" accept=".png, .jpg, .jpeg" multiple />
-        </div> */}
+          <input
+            type="file"
+            name="photo"
+            accept=".png, .jpg, .jpeg"
+            multiple
+            onChange={handleFieldChange}
+          />
+          {saveErrorMessages.photo?.map((message, index) => (
+            <p key={index}>{message}</p>
+          ))}
+        </div>
         <div>
           <Button>저장하기</Button>
         </div>
@@ -100,6 +146,8 @@ function SpotForm() {
         fieldValues={fieldValues}
         postLoading={postLoading}
         postError={postError}
+        getLoading={getLoading}
+        getError={getError}
       />
     </div>
   );

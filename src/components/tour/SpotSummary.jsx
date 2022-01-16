@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 function SpotSummary({ spot }) {
   return (
     <div>
+      <div>{`#${spot.id} Spot`}</div>
       <div>{spot.area}</div>
       <Link to={`/tour/${spot.id}/`}>
         <div>{spot.destination}</div>
