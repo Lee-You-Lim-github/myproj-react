@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SpotDetail({ spotId }) {
+  const navigate = useNavigate();
+
   const [
     { data: spotDetail, loading: spotDetailLoading, error: spotDetailError },
     refetch,
@@ -15,12 +17,26 @@ function SpotDetail({ spotId }) {
     refetch();
   }, []);
 
-  const navigate = useNavigate();
+  // 삭제
+  const [{ loading: deletingLoading, error: deletingError }, deletedSpot] =
+    useApiAxios(
+      {
+        url: `/tour/api/spots/${spotId}/`,
+        method: "DELETE",
+      },
+      { manual: true }
+    );
+
+  const handleDelete = () => {
+    deletedSpot().then(() => navigate(`/tour/`));
+  };
 
   return (
     <div>
       {spotDetailLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
       {spotDetailError && "에러가 났어요!"}
+      {deletingLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
+      {deletingError && "삭제 중 에러가 났어요!"}
       {spotDetail && (
         <div>
           <ul>
@@ -39,7 +55,7 @@ function SpotDetail({ spotId }) {
       </div>
       <div>
         <Button onClick={() => navigate(`/tour/${spotId}/edit/`)}>수정</Button>
-        <Button onClick={() => navigate(`/tour/`)}>삭제</Button>
+        <Button onClick={handleDelete}>삭제</Button>
       </div>
 
       <DebugStates
