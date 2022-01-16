@@ -7,7 +7,10 @@ function PageTourIndex() {
   const navigate = useNavigate();
   return (
     <div>
-      <H1>국내 여행 Spot</H1>
+      <h1 className="sm:text-4xl text-5xl font-medium font-bold title-font mb-2 text-gray-900">
+        국내 Hot Spot
+      </h1>
+      <div class="h-1 w-60 bg-indigo-500 rounded mb-3"></div>
       <Button onClick={() => navigate(`/tour/new/`)}>New Spot</Button>
       <SpotList />
     </div>

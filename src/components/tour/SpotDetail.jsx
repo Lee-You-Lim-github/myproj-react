@@ -37,33 +37,49 @@ function SpotDetail({ spotId }) {
       {spotDetailError && "에러가 났어요!"}
       {deletingLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
       {deletingError && "삭제 중 에러가 났어요!"}
+
       {spotDetail && (
-        <div>
-          <ul>
-            <li>{spotDetail.area}</li>
-            <li>{spotDetail.destination}</li>
-            <li>{spotDetail.content}</li>
-            <li>
-              <img src={spotDetail.photo} alt={spotDetail.destination} />
-            </li>
-          </ul>
+        <div class="sm:flex items-center shadow-md ">
+          <div class="md:px-10 sm:px-5">
+            <h1 class="text-gray-800 font-bold text-2xl my-2">
+              {spotDetail.destination}
+            </h1>
+            <p class="text-gray-700 mb-2 md:mb-6">{spotDetail.content}</p>
+            <div class="flex justify-between mb-2">
+              <span class="font-thin text-sm">{spotDetail.created_at}</span>
+              <span class="sm:block hidden mb-2 text-gray-800 font-bold">
+                {spotDetail.area}
+              </span>
+            </div>
+          </div>
+          <div>
+            <img
+              class="bg-cover  rounded w-full "
+              src={spotDetail.photo}
+              alt=""
+            />
+          </div>
         </div>
       )}
-      <hr />
-      <div>
-        <Button onClick={() => navigate(`/tour/`)}>목록으로</Button>
-      </div>
-      <div>
-        <Button onClick={() => navigate(`/tour/${spotId}/edit/`)}>수정</Button>
-        <Button onClick={handleDelete}>삭제</Button>
-      </div>
 
-      <DebugStates
-        spotId={spotId}
-        spotDetail={spotDetail}
-        spotDetailLoading={spotDetailLoading}
-        spotDetailError={spotDetailError}
-      />
+      <div>
+        <button
+          className="hover:text-red-400 mr-3"
+          onClick={() => navigate(`/tour/`)}
+        >
+          목록으로
+        </button>
+
+        <button
+          className="hover:text-red-400 mr-3"
+          onClick={() => navigate(`/tour/${spotId}/edit/`)}
+        >
+          수정
+        </button>
+        <button className="hover:text-red-400 mr-3" onClick={handleDelete}>
+          삭제
+        </button>
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ function PageTourSpotDetail() {
   const { spotId } = useParams();
   return (
     <div>
-      <H1>{`${spotId}번째 여행지`}</H1>
+      <H1>{`${spotId}번 째 Spot`}</H1>
       <SpotDetail spotId={spotId} />
     </div>
   );

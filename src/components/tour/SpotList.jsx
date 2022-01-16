@@ -13,18 +13,16 @@ function SpotList() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-wrap">
       {listLoading && <LoadingIndicator></LoadingIndicator>}
       {listError && "로딩 중 에러가 발생했습니다."}
 
       {spotList &&
-        spotList.map((spot) => <SpotSummary key={spot.id} spot={spot} />)}
-
-      <DebugStates
-        spotList={spotList}
-        listLoading={listLoading}
-        listError={listError}
-      />
+        spotList.map((spot) => (
+          <div class="xl:w-1/3 md:w-1/2 p-4">
+            <SpotSummary key={spot.id} spot={spot} />
+          </div>
+        ))}
     </div>
   );
 }
