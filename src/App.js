@@ -1,6 +1,6 @@
 import ReviewList from "pages/reviews/ReveiwList";
-import Profile from "pages/accounts/Prefile";
-import Login from "pages/accounts/Login";
+import PageProfile from "pages/accounts/PagePrefile";
+import PageLogin from "pages/accounts/PageLogin";
 import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TopNav from "components/TopNav";
@@ -36,8 +36,8 @@ function App() {
         <TopNav />
         <Routes>
           <Route path="/" element={<Navigate to="/tour/" />} />
-          <Route path="/accounts/login/" element={<Login />} />
-          <Route path="/accounts/profile/" element={<Profile />} />
+          <Route path="/accounts/login/" element={<PageLogin />} />
+          <Route path="/accounts/profile/" element={<PageProfile />} />
           <Route path="/reviews/" element={<ReviewList />} />
           <Route path="/reviews/new/" element={<PageReviewForm />} />
           <Route path="/reviews/:reviewId/edit/" element={<PageReviewForm />} />
