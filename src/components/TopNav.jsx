@@ -35,9 +35,9 @@ function TopNav() {
         <li>
           <MyLink to="/examples/context-api-2/">Context Api-2</MyLink>
         </li> */}
-        {/* <li>
+        <li>
           <MyLink to="/diary/">!!다이어리!!</MyLink>
-        </li> */}
+        </li>
         <li>
           <MyLink to="/news/">뉴스룸</MyLink>
         </li>

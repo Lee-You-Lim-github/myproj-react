@@ -17,9 +17,9 @@ import CssInJs from "pages/examples/CssInJs";
 import ContextApiSample from "pages/examples/ContextApiSample";
 import ContextApiSample2 from "pages/examples/ContextApiSample2";
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-import PageDiaryList from "pages/diarys/PageDiaryList";
-import PageDiaryDetail from "pages/diarys/PageDiaryDetail";
-import PageDiaryForm from "pages/diarys/PageDiaryForm";
+import PageDiaryPostList from "pages/diary/PageDiaryPostList";
+import PageDiaryPostDetail from "pages/diary/PageDiaryPostDetail";
+import PageDiaryPostForm from "pages/diary/PageDiaryPostForm";
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 import PageNewsIndex from "pages/news/PageNewsIndex";
 import PageNewsArticleDetail from "pages/news/PageNewsArticleDetail";
@@ -53,9 +53,9 @@ function App() {
             path="/examples/context-api-2/"
             element={<ContextApiSample2 />}
           />
-          <Route path="/diary/" element={<PageDiaryList />} />
-          <Route path="/diary/:diaryId/" element={<PageDiaryDetail />} />
-          <Route path="/diary/new" element={<PageDiaryForm />} />
+          <Route path="/diary/" element={<PageDiaryPostList />} />
+          <Route path="/diary/:diaryId/" element={<PageDiaryPostDetail />} />
+          <Route path="/diary/new" element={<PageDiaryPostForm />} />
 
           <Route path="/news/" element={<PageNewsIndex />} />
           <Route path="/news/new" element={<PageNewsArticleForm />} />
