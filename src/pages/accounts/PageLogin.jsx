@@ -18,8 +18,7 @@ const INIT_LOGIN_VALUES = {
 };
 
 function PageLogin() {
-  const { fieldValues, handleFieldChange, formData } =
-    useFieldValues(INIT_LOGIN_VALUES);
+  const { fieldValues, handleFieldChange } = useFieldValues(INIT_LOGIN_VALUES);
   const navigate = useNavigate();
 
   const [
@@ -28,7 +27,7 @@ function PageLogin() {
       error: loginError,
       errorMassages: loginErrorMassages,
     },
-    saveLogin,
+    requestToken,
   ] = useApiAxios(
     {
       url: "/accounts/api/token/",
@@ -39,7 +38,13 @@ function PageLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveLogin({ data: formData }).then(() => {
+    requestToken({ data: fieldValues }).then((response) => {
+      const { access, refresh } = response.data;
+      // TODO : access, refresh token을 브라우저 어딘가에 저장해야 합니다.
+      // 저장해서 페이지 새로고침이 발생하더라도 그 token이 유실되지 않아야 합니다.
+      console.log("access:", access);
+      console.log("refresh:", refresh);
+
       console.log("로그인 완료!!!");
       navigate("/accounts/profile/");
     });
@@ -49,27 +54,32 @@ function PageLogin() {
     <div>
       <h2>Login</h2>
       {loginLoading && <LoadingIndicator>로그인 중...</LoadingIndicator>}
-      {loginError && "로그인 중 에러가 났습니다."}
+      {loginError?.response?.status === 401 && (
+        <div>로그인에 실패했습니다.</div>
+      )}
+
       <form
         onSubmit={handleSubmit}
         className="rounded border-2 border-gray-300 p-3 my-3"
       >
         <div className="mb-4">
-          <label>User Name</label>
+          <label>아이디</label>
           <input
             type="text"
             name="username"
             value={fieldValues.username}
+            placeholder="username"
             onChange={handleFieldChange}
             className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="mb-4">
-          <label>PassWord</label>
+          <label>비밀번호</label>
           <input
             type="password"
             name="password"
             value={fieldValues.password}
+            placeholder="password"
             onChange={handleFieldChange}
             className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           />
