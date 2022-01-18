@@ -24,7 +24,7 @@ function LoginForm() {
   const { fieldValues, handleFieldChange } = useFieldValues(INIT_LOGIN_VALUES);
   const navigate = useNavigate();
 
-  const [auth, setAuth] = useAuth();
+  const [auth, _, login] = useAuth();
 
   const [
     {
@@ -48,8 +48,7 @@ function LoginForm() {
         response.data;
       // TODO : access, refresh token을 브라우저 어딘가에 저장해야 합니다.
       // 저장해서 페이지 새로고침이 발생하더라도 그 token이 유실되지 않아야 합니다.
-      setAuth({
-        isLoggedIn: true,
+      login({
         access,
         refresh,
         username,
