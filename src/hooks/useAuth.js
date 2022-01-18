@@ -1,5 +1,6 @@
 import useLocalStorage from "./useLocalStorage";
 
+// 로그인 여부
 const INITIAL_AUTH = { isLoggedIn: false };
 
 function useAuth() {
