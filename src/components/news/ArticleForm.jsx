@@ -16,11 +16,6 @@ const INIT_FIELD_VALUES = { title: "", content: "" };
 function ArticleForm({ articleId, handleDidSave }) {
   const [auth] = useAuth();
 
-  const [{ data, loading, error }] = useApiAxios(
-    `/news/api/articles/${articleId}/`,
-    { manual: !articleId }
-  );
-
   // aritcleId 값이 있을 때에만 조회
   // article => manual=false
   // !article => manual=true
@@ -128,7 +123,6 @@ function ArticleForm({ articleId, handleDidSave }) {
   return (
     <div>
       <H2>Article Form</H2>
-      {data ? <p>{data.author.username}</p> : <p>{article.author.username}</p>}
 
       {saveLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
       {saveError &&
@@ -183,7 +177,6 @@ function ArticleForm({ articleId, handleDidSave }) {
         </div>
       </form>
       <DebugStates
-        data={data}
         article={article}
         getLoading={getLoading}
         getError={getError}
