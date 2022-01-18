@@ -10,8 +10,9 @@ import Button from "components/Button";
 import DebugStates from "components/DebugStates";
 import H2 from "components/H2";
 import LoadingIndicator from "components/LoadingIndicator";
+import useAuth from "hooks/useAuth";
 import useFieldValues from "hooks/useFieldValues";
-import useLocalStorage from "hooks/useLocalStorage";
+
 import { useNavigate } from "react-router-dom";
 
 const INIT_LOGIN_VALUES = {
@@ -19,13 +20,11 @@ const INIT_LOGIN_VALUES = {
   password: "",
 };
 
-const INITIAL_AUTH = { isLoggedIn: false };
-
 function LoginForm() {
   const { fieldValues, handleFieldChange } = useFieldValues(INIT_LOGIN_VALUES);
   const navigate = useNavigate();
 
-  const [auth, setAuth] = useLocalStorage("auth", INITIAL_AUTH);
+  const [auth, setAuth] = useAuth();
 
   const [
     {
