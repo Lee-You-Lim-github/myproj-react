@@ -1,15 +1,30 @@
+import useAuth from "hooks/useAuth";
 import { Link } from "react-router-dom";
 
 function TopNav() {
+  const [auth, , , logout] = useAuth();
+
+  // 로그인을 하고 나서 topnav가 로그아웃으로 바뀌지 않음.
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className="my-3">
       <ul className="flex gap-4">
-        <li>
-          <MyLink to="/accounts/login/">로그인</MyLink>
-        </li>
-        <li>
-          <MyLink to="/accounts/profile/">프로필</MyLink>
-        </li>
+        {!auth.isLoggedIn && (
+          <>
+            <MyLink to="/accounts/login/">로그인</MyLink>
+            <MyLink to="/accounts/signup/">회원가입</MyLink>
+          </>
+        )}
+        {auth.isLoggedIn && (
+          <>
+            <MyLink to="/accounts/profile/">프로필</MyLink>
+            <button onClick={handleLogout}>로그아웃</button>
+          </>
+        )}
+
         {/* <li>
           <MyLink to="/reviews/">리뷰 리스트</MyLink>
         </li>
@@ -35,15 +50,15 @@ function TopNav() {
         <li>
           <MyLink to="/examples/context-api-2/">Context Api-2</MyLink>
         </li> */}
-        <li>
+        {/* <li>
           <MyLink to="/diary/">!!다이어리!!</MyLink>
-        </li>
+        </li> */}
         <li>
           <MyLink to="/news/">뉴스룸</MyLink>
         </li>
-        <li>
+        {/* <li>
           <MyLink to="/tour/">국내 Spot</MyLink>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

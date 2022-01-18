@@ -27,6 +27,7 @@ import PageNewsArticleForm from "pages/news/PageNewsArticleForm";
 import PageTourIndex from "pages/tour/PageTourIndex";
 import PageTourSpotDetail from "pages/tour/PageTourSpotDetail";
 import PageTourSpotForm from "pages/tour/PageTourSpotForm ";
+import SingupForm from "components/accounts/SingupForm";
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -38,6 +39,7 @@ function App() {
           <Route path="/" element={<Navigate to="/tour/" />} />
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/accounts/profile/" element={<PageProfile />} />
+          <Route path="/accounts/signup/" element={<SingupForm />} />
           <Route path="/reviews/" element={<ReviewList />} />
           <Route path="/reviews/new/" element={<PageReviewForm />} />
           <Route path="/reviews/:reviewId/edit/" element={<PageReviewForm />} />

@@ -1,9 +1,12 @@
 import { useApiAxios } from "api/base";
 import LoadingIndicator from "components/LoadingIndicator";
+import useAuth from "hooks/useAuth";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function ArticleDetail({ articleId }) {
+  const [auth] = useAuth();
+
   const [{ data: article, loading, error }, refetch] = useApiAxios(
     `/news/api/articles/${articleId}/`,
     { manual: true }
@@ -14,6 +17,9 @@ function ArticleDetail({ articleId }) {
       {
         url: `/news/api/articles/${articleId}/`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
       },
       { manual: true }
     );
@@ -41,7 +47,8 @@ function ArticleDetail({ articleId }) {
         `삭제 요청 중 에러가 발생했습니다. (${deleteError.response.status} ${deleteError.response.statusText})`}
       {article && (
         <>
-          <h3 className="text-2xl my-5">{article.title}</h3>
+          <h3 className="text-2xl my-5">{article.title} </h3>{" "}
+          <p>by {article.author.username}</p>
           {article.photo && (
             <img src={article.photo} alt={article.title} className="rounded" />
           )}
