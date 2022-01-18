@@ -11,6 +11,7 @@ function ArticleSummary({ article }) {
         />
       )}
       <Link to={`/news/${article.id}`}>{article.title}</Link>
+      <p>{article.author.username}</p>
     </div>
   );
 }

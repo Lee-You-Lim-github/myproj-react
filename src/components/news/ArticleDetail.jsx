@@ -47,7 +47,8 @@ function ArticleDetail({ articleId }) {
         `삭제 요청 중 에러가 발생했습니다. (${deleteError.response.status} ${deleteError.response.statusText})`}
       {article && (
         <>
-          <h3 className="text-2xl my-5">{article.title}</h3>
+          <h3 className="text-2xl my-5">{article.title} </h3>{" "}
+          <p>by {article.author.username}</p>
           {article.photo && (
             <img src={article.photo} alt={article.title} className="rounded" />
           )}
