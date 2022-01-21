@@ -3,7 +3,7 @@ import Button from "components/Button";
 import DebugStates from "components/DebugStates";
 import H2 from "components/H2";
 import LoadingIndicator from "components/LoadingIndicator";
-import useAuth from "hooks/useAuth";
+import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hooks/useFieldValues";
 import { useNavigate } from "react-router-dom";
 

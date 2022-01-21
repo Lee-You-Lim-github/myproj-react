@@ -6,7 +6,7 @@ import useFieldValues from "hooks/useFieldValues";
 import { useApiAxios } from "api/base";
 import { useEffect } from "react";
 import produce from "immer";
-import useAuth from "hooks/useAuth";
+import { useAuth } from "contexts/AuthContext";
 
 // !articleId : 생성
 // articleId : 수정

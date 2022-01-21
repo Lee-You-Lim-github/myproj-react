@@ -1,6 +1,6 @@
 import { useApiAxios } from "api/base";
 import LoadingIndicator from "components/LoadingIndicator";
-import useAuth from "hooks/useAuth";
+import { useAuth } from "contexts/AuthContext";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
